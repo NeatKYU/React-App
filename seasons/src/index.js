@@ -1,5 +1,6 @@
 import react from 'react';
 import ReactDOM from 'react-dom';
+import SeasonDisplay from './SeasonDisplay';
 
 /* const App = () => {
 	//현재 위치 정보를 가져오기 위해 geoloction API 사용
@@ -46,7 +47,7 @@ import ReactDOM from 'react-dom';
 			return <div>Error: {this.state.errorMessage}</div>
 		}
 		if( !this.state.errorMessage && this.state.lat) {
-			return <div>Latitude: {this.state.lat} </div>
+			return <SeasonDisplay lat={this.state.lat}/>
 		}
 		return <div>Loading...</div>
 	 }
