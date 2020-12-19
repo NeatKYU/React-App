@@ -1,6 +1,7 @@
 import react from 'react';
 import ReactDOM from 'react-dom';
 import SeasonDisplay from './SeasonDisplay';
+import Spinner from './Spinner';
 
 /* const App = () => {
 	//현재 위치 정보를 가져오기 위해 geoloction API 사용
@@ -49,7 +50,7 @@ import SeasonDisplay from './SeasonDisplay';
 		if( !this.state.errorMessage && this.state.lat) {
 			return <SeasonDisplay lat={this.state.lat}/>
 		}
-		return <div>Loading...</div>
+		return <Spinner message="please accept location request"></Spinner>
 	 }
  }
 
