@@ -25,7 +25,6 @@ import ReactDOM from 'react-dom';
 	 }
 
 	 componentDidMount() {
-
 		window.navigator.geolocation.getCurrentPosition(
 			position => {
 				// we called setState!!
@@ -42,11 +41,10 @@ import ReactDOM from 'react-dom';
 				});
 			}
 		);
-		
 	 }
 
 	 componentDidUpdate() {
-		 console.log("rerendered!!")
+
 	 }
 
 	 render() {
