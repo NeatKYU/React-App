@@ -16,13 +16,7 @@ import ReactDOM from 'react-dom';
  *  class컴포넌트로 작성....
 */
  class App extends react.Component {
-	 constructor(props){
-		 super(props);
-
-			// 직접적으로 할당할 수 있는 곳은 여기뿐!!!
-			this.state = { lat: null, errorMessage: ''};
-		 
-	 }
+	 state = { lat: null, errorMessage: '' };
 
 	 componentDidMount() {
 		window.navigator.geolocation.getCurrentPosition(
