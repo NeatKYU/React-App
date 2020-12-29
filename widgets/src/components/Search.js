@@ -3,9 +3,10 @@ import axios from 'axios';
 
 const Search = () => {
     const [term, setTerm] = useState('');
+    const [debouncedTerm, setDebouncedTerm] = useState(term);
     const [result, setResult] = useState([]);
 
-    console.log(result);
+    //console.log(result);
 
     // useEffect내에서 return이 어떻게 동작하는지 설명
     // 1. 일단 전체 useEffect의 에로우함수가 실행됨
@@ -24,10 +25,22 @@ const Search = () => {
     }, []);
     */
 
+    // update되는 변수를 제대로 만들기위해 나눔
+    useEffect(() => {
+        // 0.5초 뒤에 setDebouncedTerm를 실행하는데
+        // 사용자가 0.5초 안에 입력을 또 하면 set작동 x
+        const timeoutId = setTimeout(() => {
+            setDebouncedTerm(term)
+        }, 500);
+
+        return () => {
+            clearTimeout(timeoutId)
+        }
+    }, [term]);
+
     useEffect(() => {
         // useEffect안에서 비동기 처리법 3가지
         // 1.
-        
         const search = async () => {
             const { data } = await axios.get('https://ko.wikipedia.org/w/api.php', {
                 params: {
@@ -35,19 +48,24 @@ const Search = () => {
                     list: 'search',
                     origin: '*',
                     format: 'json',
-                    srsearch: term,
+                    srsearch: debouncedTerm,
                 }
             });
             
             setResult(data.query.search);
+            //console.log(result);
+        };
+        // 빈 문자열이면 search가 undefind떠서 에러남 그래서 if문으로 걸러줌
+        if(debouncedTerm){
+            search();
         }
         // ############################################
         // ############### 여기가 중요 #################
         // ############################################
-        console.log(term);
-        /* if(term && !result.length){
+        /*  
+        if(term && !result.length){
             search();
-        } else { */
+        } else {
             const timeoutId = setTimeout(() => {
                 if(term){
                     search();
@@ -57,7 +75,8 @@ const Search = () => {
             return () => {
                 clearTimeout(timeoutId)
             }
-        //}
+        }
+        */
         
         // ############################################
         
@@ -69,7 +88,7 @@ const Search = () => {
         })();
         */
         //1번 제일 많이 쓴데
-    }, [term]);
+    }, [debouncedTerm]);
 
     // 결과값 mapping
     const renderedResult = result.map((result) => {
