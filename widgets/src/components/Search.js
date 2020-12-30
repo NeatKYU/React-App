@@ -18,9 +18,7 @@ const Search = () => {
     /* 
     useEffect(() => {
         console.log('execute!');
-
         return (() => {
-
         })
     }, []);
     */

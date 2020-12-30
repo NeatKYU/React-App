@@ -43,7 +43,7 @@ import Spinner from './Spinner';
 
 	 }
 
-	 render() {
+	renderContent() {
 		if( this.state.errorMessage && !this.state.lat ){
 			return <div>Error: {this.state.errorMessage}</div>
 		}
@@ -51,6 +51,14 @@ import Spinner from './Spinner';
 			return <SeasonDisplay lat={this.state.lat}/>
 		}
 		return <Spinner message="please accept location request"></Spinner>
+	};
+
+	 render() {
+		 return (
+			 <div className="border red">
+			 	{this.renderContent()}
+			 </div>
+		 )
 	 }
  }
 
