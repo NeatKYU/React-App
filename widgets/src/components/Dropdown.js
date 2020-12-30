@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-const Dropdown = ({ options, selected, onSelectedChange }) => {
+const Dropdown = ({ options, selected, onSelectedChange, label }) => {
     const [visible, setVisible] = useState(false);
     const ref = useRef(); //form태그에 연결
 
@@ -65,7 +65,7 @@ const Dropdown = ({ options, selected, onSelectedChange }) => {
     return (
         <div ref={ref} className="ui form">
             <div className="field">
-                <label className="label">Select a Color</label>
+                <label className="label">{label}</label>
                 <div className={`ui selection dropdown ${visible ? 'visible' : ''} active`} onClick={handleMenuVisible}>
                     <i className="dropdown icon"></i>
                     <div className="text">{selected.label}</div>
