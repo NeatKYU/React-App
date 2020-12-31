@@ -1,5 +1,5 @@
 // lib
-import react from 'react';
+import react, {useState, useEffect} from 'react';
 
 // components
 import SearchBar from './SearchBar';
@@ -9,54 +9,48 @@ import VideoDetail from './VideoDetail';
 // api
 import youtube from '../apis/youtube';
 
-class App extends react.Component {
+const App = () => {
+	const [videos, setVideos] = useState([]);
+	const [selectedVideo, setSelectedVideo] = useState(null);
 
-	state = { videos: [], selectedVideo: null };
+	useEffect(() => {
+		onTextSubmit('박보영');
+	}, []);
 
-	componentDidMount(){
-		// 맨처음 시작할 때 검색될 내용
-		this.onTextSubmit('맛있는 녀석들');
-	}
-
-	onTextSubmit = async (serachText) => {
+	const onTextSubmit = async (serachText) => {
 		const response = await youtube.get('/search', {
 			params: {
 				q: serachText
 			}
 		})
-		// selectedVideo에 응답의 처음 값을 준다.
-		this.setState({ 
-			videos: response.data.items,
-			selectedVideo: response.data.items[0]
-		})
+		setVideos(response.data.items)
+		setSelectedVideo(response.data.items[0])
 	}
 
-	onVideoSelect = (video) => {
-		this.setState({ selectedVideo: video })
+	const onVideoSelect = (video) => {
+		setSelectedVideo(video)
 	}
 
-	render() {
-		return (
-			<div className="ui container">
-				<SearchBar handleSubmit={this.onTextSubmit}/>
-				<div className="ui grid">
-					<div className="ui row">
-						<div className="eleven wide column">
-							<VideoDetail 
-								video={this.state.selectedVideo}
-							></VideoDetail>
-						</div>
-						<div className="five wide column">
-							<VideoList 
-								videos={this.state.videos} 
-								onVideoSelect={this.onVideoSelect}
-							></VideoList>
-						</div>
+	return (
+		<div className="ui container">
+			<SearchBar handleSubmit={onTextSubmit}/>
+			<div className="ui grid">
+				<div className="ui row">
+					<div className="eleven wide column">
+						<VideoDetail 
+							video={selectedVideo}
+						></VideoDetail>
+					</div>
+					<div className="five wide column">
+						<VideoList 
+							videos={videos} 
+							onVideoSelect={onVideoSelect}
+						></VideoList>
 					</div>
 				</div>
 			</div>
-		)
-	}
+		</div>
+	);
 }
 
 export default App;
