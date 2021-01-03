@@ -26,14 +26,14 @@ class SongList extends React.Component {
 };
 
 const mapStateToProps = state => {
-	console.log(state);
 	return { 
 		songs: state.songs,
 	}
 }
 
 // ()()는 함수안의 함수를 실행시키는것
+// connect함수가 dispatch를 해주는 역할인듯
 export default connect(
 		mapStateToProps,
-		{ selectSong }
+		{ selectSong: selectSong }
 	)(SongList);
