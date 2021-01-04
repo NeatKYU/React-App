@@ -14,7 +14,7 @@ import useVideos from '../hooks/useVideos';
 
 const App = () => {
 	const [selectedVideo, setSelectedVideo] = useState(null);
-	const [videos, search] = useVideos('박보영');
+	const [videos, search] = useVideos('en');
 
 	useEffect(() => {
 		setSelectedVideo(videos[0])
