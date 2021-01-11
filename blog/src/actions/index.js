@@ -1,4 +1,5 @@
 import jsonPlaceholder from "../apis/jsonPlaceholder";
+import _ from 'lodash';
 
 /* 
 export const fetchPosts = () => {
@@ -21,10 +22,20 @@ export const fetchPosts = () => async (dispatch) => {
 
   dispatch({ type: "FETCH_POSTS", payload: response.data });
 };
-
+/* 
 export const fetchUsers = (id) => async (dispatch) => {
   // user를 개별적으로 가져오기위해 id를 넣어줌
   const response = await jsonPlaceholder.get(`/users/${id}`);
 
   dispatch({ type: "FETCH_USERS", payload: response.data });
 };
+ */
+export const fetchUsers = (id) => (dispatch) => {
+  _fetchUser(id, dispatch);
+};
+const _fetchUser = _.memoize( async (id, dispatch) => {
+  // user를 개별적으로 가져오기위해 id를 넣어줌
+  const response = await jsonPlaceholder.get(`/users/${id}`);
+
+  dispatch({ type: "FETCH_USERS", payload: response.data });
+});
