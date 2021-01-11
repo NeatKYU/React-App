@@ -1,4 +1,4 @@
-import jsonPlaceholder from '../apis/jsonPlaceholder';
+import jsonPlaceholder from "../apis/jsonPlaceholder";
 
 /* 
 export const fetchPosts = () => {
@@ -16,9 +16,15 @@ export const fetchPosts = () => {
 }; */
 // -------------->> 간소화
 
-export const fetchPosts = () => async dispatch => {
-    const response = await jsonPlaceholder.get('/posts')
-    console.log("res=", response)
+export const fetchPosts = () => async (dispatch) => {
+  const response = await jsonPlaceholder.get("/posts");
 
-    dispatch({ type: 'FETCH_POSTS', payload: response })
-}
+  dispatch({ type: "FETCH_POSTS", payload: response.data });
+};
+
+export const fetchUsers = (id) => async (dispatch) => {
+  // user를 개별적으로 가져오기위해 id를 넣어줌
+  const response = await jsonPlaceholder.get(`/users/${id}`);
+
+  dispatch({ type: "FETCH_USERS", payload: response.data });
+};
